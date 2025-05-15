@@ -1,0 +1,69 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+
+const projectData = [
+  {
+    title: "Portfolio Website",
+    description: "A responsive portfolio built with React and Tailwind CSS.",
+    imageUrl: "https://via.placeholder.com/400x250",
+  },
+  {
+    title: "E-commerce Dashboard",
+    description: "An admin dashboard with charts, product management, and orders overview.",
+    imageUrl: "https://via.placeholder.com/400x250",
+  },
+  {
+    title: "Blog Platform",
+    description: "A full-stack blog platform using Node.js and MongoDB.",
+    imageUrl: "https://via.placeholder.com/400x250",
+  },
+];
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.3,
+      duration: 0.6,
+      type: 'spring',
+    },
+  }),
+};
+
+const Projects = () => {
+  return (
+    <div className="py-12 px-4 sm:px-6 lg:px-20 bg-gray-100">
+      {/* Responsive heading size */}
+      <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  mb-12 text-center">
+        My Projects
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+        {projectData.map((project, index) => (
+          <motion.div
+            key={index}
+            custom={index}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={cardVariants}
+            className="bg-white shadow-xl rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-300"
+          >
+            <img
+              src={project.imageUrl}
+              alt={project.title}
+              className="w-full h-56 sm:h-48 md:h-56 object-cover"
+            />
+            <div className="p-6">
+              <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
+              <p className="text-gray-600">{project.description}</p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Projects;
