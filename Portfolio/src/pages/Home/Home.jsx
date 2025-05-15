@@ -3,6 +3,7 @@ import MainPage from '../../componnets/MainPage'
 import LanguageCarousel from '../../componnets/LanguageCaresol'
 import Projects from '../../componnets/Projects'
 import SocialMedia from '../../componnets/SocialMedia'
+import Services from '../../componnets/Services'
 
 const Home = () => {
   return (
@@ -19,6 +20,9 @@ const Home = () => {
       <section className='bg-gray-900'>
         <SocialMedia/>
       </section>
+      <section className='bg-gray-900'>
+        <Services/>
+        </section>
     </div>
   )
 }

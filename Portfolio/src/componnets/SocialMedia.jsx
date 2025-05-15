@@ -135,7 +135,7 @@ export default function SocialMedia() {
       >
         Turning code into creativity
       </motion.h1>
-            <motion.h1
+        <motion.h1
         className="scatter-text text-gray-500"
         style={{
           fontSize: "clamp(2.5rem, 5vw + 1rem, 6rem)",

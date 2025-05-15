@@ -95,6 +95,7 @@ const MainPage = () => {
     };
   }, []);
 
+  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -103,9 +104,29 @@ const MainPage = () => {
     },
   };
 
-  const textVariants = {
+  const paraContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.05, delayChildren: 0.4 },
+    },
+  };
+
+  const wordVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: 'easeOut' },
+    },
+  };
+
+  const charVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { duration: 0.15, ease: 'easeOut' },
+    },
   };
 
   const buttonVariants = {
@@ -118,6 +139,12 @@ const MainPage = () => {
     hidden: { opacity: 0, scale: 0.8 },
     visible: { opacity: 1, scale: 1, transition: { duration: 0.7, ease: 'easeOut' } },
   };
+
+  // Text for staggered animation
+  const headingText = 'Innovate the Digital Frontier';
+  const paragraphText = 'Building cutting-edge solutions with creativity and precision.';
+  const headingWords = headingText.split(' ');
+  const paragraphChars = paragraphText.split('');
 
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden">
@@ -165,16 +192,32 @@ const MainPage = () => {
             </motion.div>
           )}
           <motion.h1
-            className="text-6xl sm:text-4xl md:text-5xl  text-white mb-4 tracking-tight"
-            variants={textVariants}
+            className="text-3xl sm:text-4xl md:text-5xl text-white mb-4 tracking-tight"
+            variants={containerVariants}
           >
-            Innovate the Digital Frontier
+            {headingWords.map((word, index) => (
+              <motion.span
+                key={index}
+                className="inline-block mr-2"
+                variants={wordVariants}
+              >
+                {word}
+              </motion.span>
+            ))}
           </motion.h1>
           <motion.p
             className="text-base sm:text-lg md:text-lg text-gray-300 mb-8 leading-relaxed max-w-lg mx-auto md:mx-0"
-            variants={textVariants}
+            variants={paraContainerVariants}
           >
-            Building cutting-edge solutions with creativity and precision.
+            {paragraphChars.map((char, index) => (
+              <motion.span
+                key={index}
+                className="inline-block"
+                variants={charVariants}
+              >
+                {char === ' ' ? '\u00A0' : char}
+              </motion.span>
+            ))}
           </motion.p>
           <div className="flex justify-center md:justify-start gap-4 flex-wrap">
             <motion.a
