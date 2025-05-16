@@ -1,9 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
-import { animate, hover } from "motion";
-import { splitText } from "motion-plus";
-import { useMotionValue } from "motion/react";
-
+import { motion, useMotionValue, useSpring, animate } from "framer-motion";
 import {
   FaWhatsapp,
   FaFacebookF,
@@ -18,6 +14,21 @@ const socialMediaIcons = [
   { icon: FaLinkedinIn, name: "LinkedIn" },
 ];
 
+// Custom text splitting function
+const splitText = (element) => {
+  const text = element.textContent;
+  element.innerHTML = "";
+  const chars = text.split("").map((char, i) => {
+    const span = document.createElement("span");
+    span.textContent = char === " " ? "\u00A0" : char;
+    span.style.display = "inline-block";
+    span.style.position = "relative";
+    element.appendChild(span);
+    return span;
+  });
+  return { chars };
+};
+
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -25,6 +36,44 @@ const containerVariants = {
     transition: {
       staggerChildren: 0.35,
       delayChildren: 0.5,
+    },
+  },
+};
+
+const charVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  },
+  tap: {
+    scale: 0.95,
+    transition: {
+      duration: 0.2,
+      ease: "easeIn",
+    },
+  },
+};
+
+const iconVariants = {
+  hidden: { opacity: 0, scale: 0 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  },
+  tap: {
+    scale: 0.9,
+    transition: {
+      duration: 0.2,
+      ease: "easeIn",
     },
   },
 };
@@ -38,147 +87,139 @@ export default function SocialMedia() {
   useEffect(() => {
     if (!containerRef.current) return;
 
-    const heading = containerRef.current.querySelector(".scatter-text");
+    const headings = containerRef.current.querySelectorAll(".scatter-text");
     const iconsContainer = containerRef.current.querySelector(".icons");
 
-    if (!heading || !iconsContainer) return;
+    if (!headings.length || !iconsContainer) return;
 
-    // Split heading text into chars
-    const { chars } = splitText(heading);
-
-    // Also select all icon wrappers
+    // Split text for both headings
+    const charElements = Array.from(headings).map(
+      (heading) => splitText(heading).chars
+    );
+    const allChars = charElements.flat();
     const iconElements = [...iconsContainer.querySelectorAll(".icon-wrapper")];
 
     const handlePointerMove = (event) => {
       const now = performance.now();
-      const timeSinceLastEvent = (now - prevEvent.current) / 1000;
+      const timeSinceLastEvent = (now - prevEvent.current) / 1000 || 0.001;
       prevEvent.current = now;
 
       velocityX.set(event.movementX / timeSinceLastEvent);
       velocityY.set(event.movementY / timeSinceLastEvent);
     };
 
+    const handleTouchMove = (event) => {
+      if (event.touches.length > 0) {
+        const touch = event.touches[0];
+        const now = performance.now();
+        const timeSinceLastEvent = (now - prevEvent.current) / 1000 || 0.001;
+        prevEvent.current = now;
+
+        const newVelocityX =
+          (touch.clientX - (prevEvent.currentTouch?.clientX || touch.clientX)) /
+          timeSinceLastEvent;
+        const newVelocityY =
+          (touch.clientY - (prevEvent.currentTouch?.clientY || touch.clientY)) /
+          timeSinceLastEvent;
+
+        velocityX.set(newVelocityX);
+        velocityY.set(newVelocityY);
+        prevEvent.currentTouch = touch;
+      }
+    };
+
+    // Scatter animation for heading chars
+    const applyScatter = (element) => {
+      const speed = Math.min(
+        Math.sqrt(velocityX.get() ** 2 + velocityY.get() ** 2),
+        50
+      );
+      const angle = Math.atan2(velocityY.get(), velocityX.get());
+      const distance = speed * 0.1;
+
+      animate(
+        element,
+        {
+          x: Math.cos(angle) * distance,
+          y: Math.sin(angle) * distance,
+        },
+        { type: "spring", stiffness: 100, damping: 50 }
+      );
+    };
+
+    allChars.forEach((char) => {
+      char.addEventListener("pointerenter", () => applyScatter(char));
+      char.addEventListener("touchstart", () => applyScatter(char));
+    });
+
+    iconElements.forEach((icon) => {
+      icon.addEventListener("pointerenter", () => applyScatter(icon));
+      icon.addEventListener("touchstart", () => applyScatter(icon));
+    });
+
     document.addEventListener("pointermove", handlePointerMove);
-
-    // Apply scatter animation on heading chars
-    hover(chars, (element) => {
-      const speed = Math.sqrt(
-        velocityX.get() * velocityX.get() + velocityY.get() * velocityY.get()
-      );
-      const angle = Math.atan2(velocityY.get(), velocityX.get());
-      const distance = speed * 0.1;
-
-      animate(
-        element,
-        {
-          x: Math.cos(angle) * distance,
-          y: Math.sin(angle) * distance,
-        },
-        { type: "spring", stiffness: 100, damping: 50 }
-      );
-    });
-
-    // Apply scatter animation on icons
-    hover(iconElements, (element) => {
-      const speed = Math.sqrt(
-        velocityX.get() * velocityX.get() + velocityY.get() * velocityY.get()
-      );
-      const angle = Math.atan2(velocityY.get(), velocityX.get());
-      const distance = speed * 0.1;
-
-      animate(
-        element,
-        {
-          x: Math.cos(angle) * distance,
-          y: Math.sin(angle) * distance,
-        },
-        { type: "spring", stiffness: 100, damping: 50 }
-      );
-    });
+    document.addEventListener("touchmove", handleTouchMove);
 
     return () => {
       document.removeEventListener("pointermove", handlePointerMove);
+      document.removeEventListener("touchmove", handleTouchMove);
+      allChars.forEach((char) => {
+        char.removeEventListener("pointerenter", () => applyScatter(char));
+        char.removeEventListener("touchstart", () => applyScatter(char));
+      });
+      iconElements.forEach((icon) => {
+        icon.removeEventListener("pointerenter", () => applyScatter(icon));
+        icon.removeEventListener("touchstart", () => applyScatter(icon));
+      });
     };
-  }, []);
+  }, [velocityX, velocityY]);
 
   return (
     <motion.div
       ref={containerRef}
-      style={{
-        minHeight: "80vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: "20px 15px",
-        fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-        background: "black",
-        color: "white",
-        textAlign: "center",
-        userSelect: "none",
-      }}
+      className="min-h-[80vh] flex flex-col justify-center items-center p-4 sm:p-6 bg-black text-white text-center select-none"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
     >
       <motion.h1
-        className="scatter-text"
+        className="scatter-text text-3xl sm:text-4xl md:text-5xl font-bold mb-6 max-w-[90vw] leading-tight cursor-pointer"
         style={{
           fontSize: "clamp(2.5rem, 5vw + 1rem, 6rem)",
           fontWeight: "900",
-          marginBottom: "40px",
-          userSelect: "none",
-          maxWidth: "90vw",
           lineHeight: 1.1,
-          cursor: "pointer",
         }}
+        variants={charVariants}
       >
         Turning code into creativity
       </motion.h1>
-        <motion.h1
-        className="scatter-text text-gray-500"
+      <motion.h1
+        className="scatter-text text-3xl sm:text-4xl md:text-5xl font-bold mb-10 max-w-[90vw] leading-tight cursor-pointer text-gray-300"
         style={{
           fontSize: "clamp(2.5rem, 5vw + 1rem, 6rem)",
           fontWeight: "900",
-          marginBottom: "40px",
-          userSelect: "none",
-          maxWidth: "90vw",
           lineHeight: 1.1,
-          cursor: "pointer",
         }}
+        variants={charVariants}
       >
-       -one line at a time.
+        - one line at a time.
       </motion.h1>
 
       <div
-        className="icons"
-        style={{
-          display: "flex",
-          gap: "40px",
-          fontSize: "3rem",
-          cursor: "pointer",
-          userSelect: "none",
-        }}
+        className="icons flex gap-6 sm:gap-8 text-3xl sm:text-4xl"
+        style={{ cursor: "pointer" }}
       >
         {socialMediaIcons.map(({ icon: Icon, name }) => (
-          <span
+          <motion.span
             key={name}
-            className="icon-wrapper"
+            className="icon-wrapper inline-flex items-center justify-center border-2 border-white rounded-lg p-2 hover:border-gray-300 transition-colors duration-300"
             aria-label={name}
             title={name}
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "white",
-              border: "2px solid white", // white border
-              padding: "8px", // space inside border
-              borderRadius: "8px", // rounded corners
-              transition: "border-color 0.3s ease", // smooth border color transition on hover (optional)
-            }}
+            variants={iconVariants}
+            whileTap="tap"
           >
             <Icon />
-          </span>
+          </motion.span>
         ))}
       </div>
     </motion.div>

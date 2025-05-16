@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import{ BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
-import Home from './pages/Home/Home'
+import Mainlayout from './layout/Mainlayout'
 
 function App() {
 
@@ -11,7 +11,7 @@ function App() {
     <div>
       <BrowserRouter>
       <Routes>
-        <Route path='/home' element={<Home/>}/>
+        <Route path='/' element={<Mainlayout/>}/>
       </Routes>
       </BrowserRouter>
     </div>

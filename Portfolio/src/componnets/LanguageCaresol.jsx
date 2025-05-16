@@ -72,7 +72,7 @@ const LanguageCarousel = () => {
               {[...languages1, ...languages1].map((lang, index) => (
                 <div
                   key={`row1-${index}`}
-                  className="flex-shrink-0 mx-2 px-6 py-3 bg-gray-900 border border-green-950 text-white font-mono text-lg text-center min-w-[140px] hover:bg-green-950/50 hover:border-green-800 transition-all duration-300"
+                  className="flex-shrink-0 mx-2 px-6 py-3 bg-gray-900 border border-white text-white font-mono text-lg text-center min-w-[140px] hover:bg-black hover:border-white transition-all duration-300"
                 >
                   {lang}
                 </div>
@@ -85,7 +85,7 @@ const LanguageCarousel = () => {
               {[...languages2, ...languages2].map((lang, index) => (
                 <div
                   key={`row2-${index}`}
-                  className="flex-shrink-0 mx-2 px-6 py-3 bg-gray-900 border border-green-950 text-white font-mono text-lg text-center min-w-[140px] hover:bg-green-950/50 hover:border-green-800 transition-all duration-300"
+                  className="flex-shrink-0 mx-2 px-6 py-3 bg-gray-900 border border-white text-white font-mono text-lg text-center min-w-[140px] hover:bg-black hover:border-white transition-all duration-300"
                 >
                   {lang}
                 </div>
@@ -98,7 +98,7 @@ const LanguageCarousel = () => {
               {[...languages3, ...languages3].map((lang, index) => (
                 <div
                   key={`row3-${index}`}
-                  className="flex-shrink-0 mx-2 px-6 py-3 bg-gray-900 border border-green-950 text-white font-mono text-lg text-center min-w-[140px] hover:bg-green-950/50 hover:border-green-800 transition-all duration-300"
+                  className="flex-shrink-0 mx-2 px-6 py-3 bg-gray-900 border border-white text-white font-mono text-lg text-center min-w-[140px] hover:bg-black hover:border-white transition-all duration-300"
                 >
                   {lang}
                 </div>
