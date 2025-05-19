@@ -1,5 +1,7 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { HiOutlineArrowRight } from "react-icons/hi";
 
 const projectData = [
   {
@@ -9,7 +11,8 @@ const projectData = [
   },
   {
     title: "E-commerce Dashboard",
-    description: "An admin dashboard with charts, product management, and orders overview.",
+    description:
+      "An admin dashboard with charts, product management, and orders overview.",
     imageUrl: "https://via.placeholder.com/400x250",
   },
   {
@@ -27,18 +30,24 @@ const cardVariants = {
     transition: {
       delay: i * 0.3,
       duration: 0.6,
-      type: 'spring',
+      type: "spring",
     },
   }),
 };
 
 const Projects = () => {
+  const navigate = useNavigate();
+
+  const handlenavigate = () => {
+    navigate("/project");
+  };
   return (
     <div className="py-12 px-4 sm:px-6 lg:px-20 bg-gray-100">
       {/* Responsive heading size */}
-      <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  mb-12 text-center">
+      <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-12 text-center">
         My Projects
       </h2>
+
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
         {projectData.map((project, index) => (
           <motion.div
@@ -57,10 +66,38 @@ const Projects = () => {
             />
             <div className="p-6">
               <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-              <p className="text-gray-600">{project.description}</p>
+              <p className="text-gray-600 mb-4">{project.description}</p>
+              <button className="flex items-center text-blue-600 font-semibold hover:underline">
+                View Project
+                <svg
+                  className="w-5 h-5 ml-2"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
             </div>
           </motion.div>
         ))}
+      </div>
+
+      {/* Centered black button with hover effect */}
+      <div className="mt-12 text-center">
+        <button
+          onClick={handlenavigate}
+          className="inline-flex items-center bg-white text-black border border-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition-colors duration-300 mx-auto"
+        >
+          See All Projects
+          <HiOutlineArrowRight className="w-5 h-5 ml-2" />
+        </button>
       </div>
     </div>
   );

@@ -1,27 +1,30 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import background from "../assets/background.jpg";
+import hero from "../assets/hero.jpg";
+
+import { FiChevronDown } from "react-icons/fi";
 
 const MotionLink = motion(Link);
 
-const backgroundImageUrl =
-  'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80';
-
 const MainPage = () => {
   const canvasRef = useRef(null);
-  const [profileImage, setProfileImage] = useState(localStorage.getItem('profileImage') || null);
+  const [profileImage, setProfileImage] = useState(
+    localStorage.getItem("profileImage") || null
+  );
 
   useEffect(() => {
     const handleStorageChange = () => {
-      setProfileImage(localStorage.getItem('profileImage') || null);
+      setProfileImage(localStorage.getItem("profileImage") || null);
     };
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     let particles = [];
     let mouse = { x: null, y: null };
 
@@ -31,9 +34,9 @@ const MainPage = () => {
     };
 
     resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener("resize", resizeCanvas);
 
-    window.addEventListener('mousemove', (e) => {
+    window.addEventListener("mousemove", (e) => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
     });
@@ -63,7 +66,7 @@ const MainPage = () => {
       }
 
       draw() {
-        ctx.fillStyle = 'rgba(6, 95, 70, 0.4)';
+        ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -90,12 +93,11 @@ const MainPage = () => {
     animate();
 
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
-      window.removeEventListener('mousemove', () => {});
+      window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener("mousemove", () => {});
     };
   }, []);
 
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -117,7 +119,7 @@ const MainPage = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: 'easeOut' },
+      transition: { duration: 0.5, ease: "easeOut" },
     },
   };
 
@@ -125,41 +127,56 @@ const MainPage = () => {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { duration: 0.15, ease: 'easeOut' },
+      transition: { duration: 0.15, ease: "easeOut" },
     },
   };
 
   const buttonVariants = {
     hidden: { opacity: 0, scale: 0.9 },
     visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
-    hover: { scale: 1.05, boxShadow: '0 0 15px rgba(6, 95, 70, 0.4)' },
+    hover: { scale: 1.05, boxShadow: "0 0 15px rgba(255, 255, 255, 0.4)" },
   };
 
   const imageVariants = {
     hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.7, ease: 'easeOut' } },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.7, ease: "easeOut" },
+    },
   };
 
-  // Text for staggered animation
-  const headingText = 'Innovate the Digital Frontier';
-  const paragraphText = 'Building cutting-edge solutions with creativity and precision.';
-  const headingWords = headingText.split(' ');
-  const paragraphChars = paragraphText.split('');
+  const headingText = "Where Creativity Meets Code";
+  const paragraphText =
+    "A passionate developer focused on clean design and efficient code. Welcome to my portfolio";
+  const headingWords = headingText.split(" ");
+  const paragraphChars = paragraphText.split("");
+
+  const arrowVariants = {
+    animate: {
+      y: [0, 15, 0], // bounce down and up
+      transition: {
+        duration: 2,
+        repeat: Infinity,
+        ease: "easeInOut",
+      },
+    },
+  };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden px-4 sm:px-6">
       {/* Background Image with zoom animation */}
       <motion.div
         className="absolute inset-0 bg-cover bg-center opacity-30"
-        style={{ backgroundImage: `url(${backgroundImageUrl})` }}
+        style={{ backgroundImage: `url(${background})` }}
         initial={{ scale: 1 }}
         animate={{ scale: [1, 1.1, 1.1, 1] }}
         transition={{
           duration: 12,
-          ease: 'easeInOut',
+          ease: "easeInOut",
           times: [0, 0.4, 0.6, 1],
           repeat: Infinity,
-          repeatType: 'loop',
+          repeatType: "loop",
         }}
       />
 
@@ -167,10 +184,10 @@ const MainPage = () => {
       <canvas ref={canvasRef} className="absolute inset-0 opacity-40" />
 
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(6,95,70,0.15)_0%,transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1)_0%,transparent_60%)]" />
 
       <motion.div
-        className="relative z-10 max-w-6xl mx-auto px-6 py-12 flex flex-col md:flex-row items-center gap-12"
+        className="relative z-10 max-w-6xl mx-auto py-12 flex flex-col md:flex-row items-center gap-12"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -179,7 +196,7 @@ const MainPage = () => {
         <div className="text-center md:text-left md:flex-1">
           {profileImage && (
             <motion.div
-              className="mb-6"
+              className="mb-6 flex justify-center md:justify-start"
               variants={imageVariants}
               initial="hidden"
               animate="visible"
@@ -187,12 +204,12 @@ const MainPage = () => {
               <img
                 src={profileImage}
                 alt="Profile"
-                className="w-24 h-24 md:w-32 md:h-32 mx-auto md:mx-0 rounded-full border-2 border-[#065f46] object-cover shadow-lg"
+                className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-full border-2 border-white object-cover shadow-lg"
               />
             </motion.div>
           )}
           <motion.h1
-            className="text-3xl sm:text-4xl md:text-5xl text-white mb-4 tracking-tight"
+            className="text-2xl sm:text-3xl md:text-5xl text-white mb-4 tracking-tight"
             variants={containerVariants}
           >
             {headingWords.map((word, index) => (
@@ -206,7 +223,7 @@ const MainPage = () => {
             ))}
           </motion.h1>
           <motion.p
-            className="text-base sm:text-lg md:text-lg text-gray-300 mb-8 leading-relaxed max-w-lg mx-auto md:mx-0"
+            className="text-sm sm:text-base md:text-lg text-gray-300 mb-8 leading-relaxed max-w-md mx-auto md:mx-0"
             variants={paraContainerVariants}
           >
             {paragraphChars.map((char, index) => (
@@ -215,7 +232,7 @@ const MainPage = () => {
                 className="inline-block"
                 variants={charVariants}
               >
-                {char === ' ' ? '\u00A0' : char}
+                {char === " " ? "\u00A0" : char}
               </motion.span>
             ))}
           </motion.p>
@@ -237,11 +254,26 @@ const MainPage = () => {
 
         {/* Right Content */}
         <motion.div
-          className="w-full sm:w-[400px] md:w-[500px] h-[400px] sm:h-[550px] md:h-[700px] bg-[#022c22] rounded-xl shadow-lg border border-[#065f46]"
+          className="w-full sm:w-[350px] md:w-[450px] h-[300px] sm:h-[450px] md:h-[600px] bg-[#111] rounded-xl bg-cover bg-center"
+          style={{
+            backgroundImage: `url(${hero})`,
+            boxShadow: "0 0 25px 8px rgba(255, 255, 255, 0.15)",
+          }}
           variants={imageVariants}
           initial="hidden"
           animate="visible"
         />
+
+        <motion.div
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white cursor-pointer "
+          variants={arrowVariants}
+          animate="animate"
+          aria-label="Scroll down"
+        >
+          <div className="mt-20 animate-bounce">
+            <FiChevronDown size={36} />
+          </div>
+        </motion.div>
       </motion.div>
     </section>
   );

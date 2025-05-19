@@ -68,9 +68,9 @@ const Services = () => {
       ),
     },
     {
-      title: "Backend Development",
+      title: "FullStack Development",
       description:
-        "Developing secure, scalable server-side solutions with APIs and databases.",
+        "Building end-to-end web applications with robust backend architecture, intuitive frontends, seamless API integration, and secure, scalable databases.",
       icon: (
         <svg
           className="w-14 h-14 text-gray-800"

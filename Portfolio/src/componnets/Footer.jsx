@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 import { FaWhatsapp, FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 
 const Footer = () => {
@@ -17,35 +16,6 @@ const Footer = () => {
     { icon: FaLinkedinIn, name: "LinkedIn", href: "#" },
   ];
 
-  const linkVariants = {
-    hover: {
-      scale: 1.1,
-      color: "#d1d5db", // text-gray-300
-      transition: { duration: 0.3, ease: "easeOut" },
-    },
-    tap: {
-      scale: 0.95,
-      transition: { duration: 0.2, ease: "easeIn" },
-    },
-  };
-
-  const iconVariants = {
-    hover: {
-      scale: 1.2,
-      y: [-2, 2],
-      transition: {
-        duration: 0.4,
-        repeat: Infinity,
-        repeatType: "reverse",
-        ease: "easeInOut",
-      },
-    },
-    tap: {
-      scale: 0.9,
-      transition: { duration: 0.2, ease: "easeIn" },
-    },
-  };
-
   return (
     <footer className="bg-black text-white py-8 sm:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -53,34 +23,28 @@ const Footer = () => {
           {/* Navigation Links */}
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">
             {navItems.map((item) => (
-              <motion.a
+              <a
                 key={item.name}
                 href={item.href}
                 className="text-gray-300 hover:text-white text-base font-medium"
-                variants={linkVariants}
-                whileHover="hover"
-                whileTap="tap"
               >
                 {item.name}
-              </motion.a>
+              </a>
             ))}
           </div>
 
           {/* Social Media Icons */}
           <div className="flex gap-6 text-2xl">
             {socialMediaIcons.map(({ icon: Icon, name, href }) => (
-              <motion.a
+              <a
                 key={name}
                 href={href}
                 className="text-gray-300 hover:text-white"
                 aria-label={name}
                 title={name}
-                variants={iconVariants}
-                whileHover="hover"
-                whileTap="tap"
               >
                 <Icon />
-              </motion.a>
+              </a>
             ))}
           </div>
         </div>

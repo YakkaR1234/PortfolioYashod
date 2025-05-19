@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import MainPage from '../../componnets/MainPage'
 import LanguageCarousel from '../../componnets/LanguageCaresol'
 import Projects from '../../componnets/Projects'
@@ -6,6 +6,10 @@ import SocialMedia from '../../componnets/SocialMedia'
 import Services from '../../componnets/Services'
 
 const Home = () => {
+    useEffect(() => {
+      // Scroll to the top of the page when the component mounts
+      window.scrollTo(0, 0);
+    }, []);
   return (
     <div className='bg-gray-900'>
       <section >
