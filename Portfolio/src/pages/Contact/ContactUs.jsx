@@ -53,7 +53,7 @@ const ContactUs = () => {
             Reach out via email or find me on social media!
           </motion.p>
           <motion.a
-            href="mailto:yashod@example.com"
+            href="mailto:yashodpeiris2002@gmail.com"
             className="inline-block px-6 py-3 bg-white text-black font-semibold rounded-lg hover:bg-gray-200"
             variants={itemVariants}
             whileHover={{ scale: 1.05 }}
@@ -150,7 +150,7 @@ const ContactUs = () => {
           on social media to get started!
         </motion.p>
         <motion.a
-          href="mailto:yashodpeiris2002@example.com"
+          href="mailto:yashodpeiris2002@gmail.com"
           className="inline-block px-6 py-3 bg-black text-white font-semibold rounded-lg hover:bg-gray-800"
           variants={itemVariants}
           whileHover={{ scale: 1.05 }}
