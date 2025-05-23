@@ -1,12 +1,17 @@
 import React from "react";
-import { FaWhatsapp, FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import {
+  FaWhatsapp,
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+} from "react-icons/fa";
 
 const Footer = () => {
   const navItems = [
-    { name: "About Us", href: "#about" },
-    { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" },
-    { name: "Services", href: "#services" },
+    { name: "Home", href: "/" },
+    { name: "About Us", href: "/about" },
+    { name: "Projects", href: "/project" },
+    { name: "Contact", href: "/contact" },
   ];
 
   const socialMediaIcons = [

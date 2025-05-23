@@ -246,7 +246,7 @@ const MainPage = () => {
               whileHover="hover"
               whileTap={{ scale: 0.95 }}
             >
-              <span className="relative z-10">View Projects</span>
+              <span className="relative z-10">D L Yashod Ravimal peiris</span>
               <span className="absolute inset-0 bg-white/10 scale-x-0 group-hover:scale-x-100 origin-center transition-transform duration-300 ease-out" />
             </motion.a>
           </div>

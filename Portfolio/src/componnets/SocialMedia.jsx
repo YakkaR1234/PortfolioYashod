@@ -1,18 +1,10 @@
 import React, { useEffect, useRef } from "react";
-import { motion, useMotionValue, useSpring, animate } from "framer-motion";
-import {
-  FaWhatsapp,
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
-} from "react-icons/fa";
+import { motion, useMotionValue, animate } from "framer-motion";
+import { FaGithub } from "react-icons/fa";
+import background from "../assets/background.jpg";
+import { useNavigate } from "react-router-dom";
 
-const socialMediaIcons = [
-  { icon: FaWhatsapp, name: "WhatsApp" },
-  { icon: FaFacebookF, name: "Facebook" },
-  { icon: FaInstagram, name: "Instagram" },
-  { icon: FaLinkedinIn, name: "LinkedIn" },
-];
+const socialMediaIcons = [{ icon: FaGithub, name: "GitHub" }];
 
 // Custom text splitting function
 const splitText = (element) => {
@@ -83,6 +75,11 @@ export default function SocialMedia() {
   const velocityX = useMotionValue(0);
   const velocityY = useMotionValue(0);
   const prevEvent = useRef(0);
+  const navigate = useNavigate();
+
+  const handlenavigate = () => {
+    navigate("/contact");
+  };
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -92,7 +89,6 @@ export default function SocialMedia() {
 
     if (!headings.length || !iconsContainer) return;
 
-    // Split text for both headings
     const charElements = Array.from(headings).map(
       (heading) => splitText(heading).chars
     );
@@ -128,7 +124,6 @@ export default function SocialMedia() {
       }
     };
 
-    // Scatter animation for heading chars
     const applyScatter = (element) => {
       const speed = Math.min(
         Math.sqrt(velocityX.get() ** 2 + velocityY.get() ** 2),
@@ -177,50 +172,72 @@ export default function SocialMedia() {
   return (
     <motion.div
       ref={containerRef}
-      className="min-h-[80vh] flex flex-col justify-center items-center p-4 sm:p-6 bg-black text-white text-center select-none"
+      className="relative min-h-[80vh] flex flex-col justify-center items-center p-4 sm:p-6 bg-black text-white text-center select-none overflow-hidden"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
     >
-      <motion.h1
-        className="scatter-text text-3xl sm:text-4xl md:text-5xl font-bold mb-6 max-w-[90vw] leading-tight cursor-pointer"
-        style={{
-          fontSize: "clamp(2.5rem, 5vw + 1rem, 6rem)",
-          fontWeight: "900",
-          lineHeight: 1.1,
-        }}
-        variants={charVariants}
-      >
-        Turning code into creativity
-      </motion.h1>
-      <motion.h1
-        className="scatter-text text-3xl sm:text-4xl md:text-5xl font-bold mb-10 max-w-[90vw] leading-tight cursor-pointer text-gray-300"
-        style={{
-          fontSize: "clamp(2.5rem, 5vw + 1rem, 6rem)",
-          fontWeight: "900",
-          lineHeight: 1.1,
-        }}
-        variants={charVariants}
-      >
-        - one line at a time.
-      </motion.h1>
-
+      {/* Background Image */}
       <div
-        className="icons flex gap-6 sm:gap-8 text-3xl sm:text-4xl"
-        style={{ cursor: "pointer" }}
-      >
-        {socialMediaIcons.map(({ icon: Icon, name }) => (
-          <motion.span
-            key={name}
-            className="icon-wrapper inline-flex items-center justify-center border-2 border-white rounded-lg p-2 hover:border-gray-300 transition-colors duration-300"
-            aria-label={name}
-            title={name}
-            variants={iconVariants}
-            whileTap="tap"
+        className="absolute inset-0 bg-cover bg-center z-0"
+        style={{ backgroundImage: `url(${background})` }}
+      />
+
+      {/* Foreground Content */}
+      <div className="relative z-10 flex flex-col items-center">
+        <motion.h1
+          className="scatter-text text-3xl sm:text-4xl md:text-5xl font-bold mb-6 max-w-[90vw] leading-tight cursor-pointer"
+          style={{
+            fontSize: "clamp(2.5rem, 5vw + 1rem, 6rem)",
+            fontWeight: "900",
+            lineHeight: 1.1,
+          }}
+          variants={charVariants}
+        >
+          Turning code into creativity
+        </motion.h1>
+        <motion.h1
+          className="scatter-text text-3xl sm:text-4xl md:text-5xl font-bold mb-10 max-w-[90vw] leading-tight cursor-pointer text-gray-300"
+          style={{
+            fontSize: "clamp(2.5rem, 5vw + 1rem, 6rem)",
+            fontWeight: "900",
+            lineHeight: 1.1,
+          }}
+          variants={charVariants}
+        >
+          - one line at a time.
+        </motion.h1>
+
+        {/* Icons and new button */}
+        <div
+          className="icons flex flex-col items-center gap-6 sm:gap-8 text-3xl sm:text-4xl"
+          style={{ cursor: "pointer" }}
+        >
+          {socialMediaIcons.map(({ icon: Icon, name }) => (
+            <motion.a
+              key={name}
+              href="https://github.com/YakkaR1234"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="icon-wrapper inline-flex items-center justify-center border-2 border-white rounded-lg p-2 hover:border-gray-300 transition-colors duration-300"
+              aria-label={name}
+              title={name}
+              variants={iconVariants}
+              whileTap="tap"
+            >
+              <Icon />
+            </motion.a>
+          ))}
+
+          {/* New Button Below Icons */}
+          <motion.button
+            onClick={handlenavigate}
+            className="mt-4 px-6 py-2 text-lg sm:text-xl font-semibold border-2 border-white rounded-lg text-white hover:bg-white hover:text-black transition-colors duration-300"
+            whileTap={{ scale: 0.95 }}
           >
-            <Icon />
-          </motion.span>
-        ))}
+            Contact me
+          </motion.button>
+        </div>
       </div>
     </motion.div>
   );

@@ -5,9 +5,9 @@ const Services = () => {
   // Services data with SVG icons
   const services = [
     {
-      title: "Web Development",
+      title: "API Integration & Development",
       description:
-        "Crafting responsive, high-performance websites with modern frameworks and clean code.",
+        "Creating and connecting robust APIs to enable smooth data exchange between systems and services.",
       icon: (
         <svg
           className="w-14 h-14 text-gray-800"
@@ -20,15 +20,15 @@ const Services = () => {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="2"
-            d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+            d="M16 12a4 4 0 01-8 0M12 16v4m0-8V4"
           ></path>
         </svg>
       ),
     },
     {
-      title: "Mobile App Development",
+      title: "CI/CD Pipeline Setup & Automation",
       description:
-        "Building cross-platform mobile apps with seamless UX and robust functionality.",
+        "Implementing automated build, test, and deployment pipelines using popular tools like GitHub Actions, Jenkins, or GitLab CI to ensure faster and reliable software delivery.",
       icon: (
         <svg
           className="w-14 h-14 text-gray-800"
@@ -41,15 +41,15 @@ const Services = () => {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="2"
-            d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
-          ></path>
+            d="M12 4v16m8-8H4"
+          />
         </svg>
       ),
     },
     {
-      title: "UI/UX Design",
+      title: "Social Media Management & Marketing",
       description:
-        "Designing intuitive, visually stunning interfaces that prioritize user experience.",
+        "Crafting impactful strategies and engaging content to grow your brand across social platforms.",
       icon: (
         <svg
           className="w-14 h-14 text-gray-800"
@@ -68,9 +68,9 @@ const Services = () => {
       ),
     },
     {
-      title: "FullStack Development",
+      title: "Progressive Web App (PWA) Development",
       description:
-        "Building end-to-end web applications with robust backend architecture, intuitive frontends, seamless API integration, and secure, scalable databases.",
+        "Build fast, reliable, and engaging PWAs that work offline and provide app-like experiences.",
       icon: (
         <svg
           className="w-14 h-14 text-gray-800"
@@ -83,8 +83,8 @@ const Services = () => {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="2"
-            d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"
-          ></path>
+            d="M9 12l2 2 4-4M7 20h10a2 2 0 002-2v-8a2 2 0 00-2-2h-3l-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2z"
+          />
         </svg>
       ),
     },

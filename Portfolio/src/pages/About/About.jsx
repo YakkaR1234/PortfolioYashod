@@ -1,5 +1,6 @@
-import React,{useEffect} from 'react'
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
+import UpButton from "../../componnets/UpButton";
 
 // Animation variants
 const containerVariants = {
@@ -23,12 +24,11 @@ const itemVariants = {
 };
 
 const About = () => {
-
-    useEffect(() => {
+  useEffect(() => {
     // Scroll to the top of the page when the component mounts
     window.scrollTo(0, 0);
   }, []);
-  
+
   return (
     <motion.div
       className="min-h-screen bg-black text-white"
@@ -53,7 +53,7 @@ const About = () => {
             elegant solutions.
           </motion.p>
           <motion.a
-            href="#contact"
+            href="/contact"
             className="inline-block px-6 py-3 bg-white text-black font-semibold rounded-lg hover:bg-gray-200"
             variants={itemVariants}
             whileHover={{ scale: 1.05 }}
@@ -118,8 +118,11 @@ const About = () => {
               <h3 className="text-2xl font-medium">Software enginaer intern</h3>
               <p className="text-gray-400">bezzie.pvt | [janu 7 - Present]</p>
               <p className="text-gray-300 mt-2">
-    Collaborating with the development team to build and maintain scalable web applications using React and Tailwind CSS. Gained hands-on experience in writing clean, modular code, integrating APIs, and participating in agile development workflows.
-  </p>
+                Collaborating with the development team to build and maintain
+                scalable web applications using React and Tailwind CSS. Gained
+                hands-on experience in writing clean, modular code, integrating
+                APIs, and participating in agile development workflows.
+              </p>
             </motion.div>
             <motion.div
               className="border-l-4 border-white pl-6"
@@ -171,7 +174,7 @@ const About = () => {
           discuss how I can help!
         </motion.p>
         <motion.a
-          href="#contact"
+          href="/contact"
           className="inline-block px-6 py-3 bg-black text-white font-semibold rounded-lg hover:bg-gray-800"
           variants={itemVariants}
           whileHover={{ scale: 1.05 }}
@@ -179,6 +182,7 @@ const About = () => {
           Contact Me
         </motion.a>
       </section>
+      <UpButton />
     </motion.div>
   );
 };

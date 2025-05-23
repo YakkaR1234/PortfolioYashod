@@ -3,22 +3,24 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { HiOutlineArrowRight } from "react-icons/hi";
 
+import patientPulse from "../assets/web6.webp";
+
 const projectData = [
   {
-    title: "Portfolio Website",
-    description: "A responsive portfolio built with React and Tailwind CSS.",
-    imageUrl: "https://via.placeholder.com/400x250",
-  },
-  {
-    title: "E-commerce Dashboard",
+    title: "TransFusionWeb",
     description:
-      "An admin dashboard with charts, product management, and orders overview.",
+      "API Data Format Convertion with Health Monitoring & Availability Prediction Middleaware (Pending)",
     imageUrl: "https://via.placeholder.com/400x250",
   },
   {
-    title: "Blog Platform",
-    description: "A full-stack blog platform using Node.js and MongoDB.",
+    title: "Honey-bee",
+    description: "E-commerice website with admin dashboard",
     imageUrl: "https://via.placeholder.com/400x250",
+  },
+  {
+    title: "PatientPulse",
+    description: "Patient management System with appointment booking",
+    imageUrl: patientPulse,
   },
 ];
 

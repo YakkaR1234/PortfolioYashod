@@ -4,6 +4,7 @@ import LanguageCarousel from '../../componnets/LanguageCaresol'
 import Projects from '../../componnets/Projects'
 import SocialMedia from '../../componnets/SocialMedia'
 import Services from '../../componnets/Services'
+import UpButton from '../../componnets/UpButton'
 
 const Home = () => {
     useEffect(() => {
@@ -27,6 +28,9 @@ const Home = () => {
       <section className='bg-gray-900'>
         <Services/>
         </section>
+
+
+        <UpButton/>
     </div>
   )
 }
