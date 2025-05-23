@@ -9,9 +9,9 @@ import {
 const Footer = () => {
   const navItems = [
     { name: "Home", href: "/" },
-    { name: "About Us", href: "/about" },
-    { name: "Projects", href: "/project" },
-    { name: "Contact", href: "/contact" },
+    { name: "About Us", href: "/PortfolioYashod/about" },
+    { name: "Projects", href: "/PortfolioYashod/project" },
+    { name: "Contact", href: "/PortfolioYashod/contact" },
   ];
 
   const socialMediaIcons = [
