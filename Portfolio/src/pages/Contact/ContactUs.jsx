@@ -150,7 +150,7 @@ const ContactUs = () => {
           on social media to get started!
         </motion.p>
         <motion.a
-          href="mailto:yashod@example.com"
+          href="mailto:yashodpeiris2002@example.com"
           className="inline-block px-6 py-3 bg-black text-white font-semibold rounded-lg hover:bg-gray-800"
           variants={itemVariants}
           whileHover={{ scale: 1.05 }}
